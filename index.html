@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual Viewer Demo</title>
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <h1>Manual Viewer Demo</h1>
+        <p class="sub">空ビューワー本体。後入れで package フォルダまたは package ZIP を読み込みます。</p>
+      </div>
+      <div class="actions">
+        <label class="btn">
+          フォルダ読込
+          <input id="folderInput" type="file" webkitdirectory directory multiple hidden>
+        </label>
+        <label class="btn secondary">
+          ZIP/ファイル読込
+          <input id="fileInput" type="file" multiple hidden accept=".json,.pdf,.png,.jpg,.jpeg,.webp,.mp4,.zip">
+        </label>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="card">
+          <h2>読込状態</h2>
+          <p id="status">まだパッケージ未読込です。</p>
+          <p class="hint">期待構成: manifest.json / catalog.json / docs/...
+          ZIP 1個でも読込できます。</p>
+        </div>
+        <div class="card">
+          <h2>検索</h2>
+          <input id="searchInput" class="search" type="search" placeholder="資料名・設備名・タグで検索">
+        </div>
+        <div class="card">
+          <h2>階層</h2>
+          <div id="tree" class="tree empty">パッケージを読み込むとここに階層が出ます。</div>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div class="card list-card">
+          <div class="list-head">
+            <h2>資料一覧</h2>
+            <span id="countBadge" class="badge">0件</span>
+          </div>
+          <div id="list" class="list empty">資料はまだありません。</div>
+        </div>
+
+        <div class="card viewer-card">
+          <div class="viewer-head">
+            <h2 id="viewerTitle">資料ビューア</h2>
+            <button id="openNewTabBtn" class="btn secondary small" disabled>新規タブで開く</button>
+          </div>
+          <div id="meta" class="meta">資料を選択すると詳細が出ます。</div>
+          <div id="viewerEmpty" class="viewer-empty">PDF / 画像 / 動画をここに表示します。</div>
+          <iframe id="pdfFrame" class="viewer hidden" title="PDF Viewer"></iframe>
+          <img id="imageViewer" class="viewer hidden" alt="Image Viewer">
+          <video id="videoViewer" class="viewer hidden" controls playsinline preload="metadata"></video>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./assets/vendor/jszip.min.js"></script>
+  <script src="./assets/app.js"></script>
+</body>
+</html>
